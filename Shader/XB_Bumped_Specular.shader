@@ -90,7 +90,7 @@
 				albedo *= _Color;
 
 				fixed3 diffuse = CalcDiffuse(albedo, worldLight, worldNormal);
-				fixed3 specular = CalcSpecular(worldView, worldLight, worldNormal, _SpecularGloss, i.uv);
+				fixed3 specular = CalcSpecular(worldView, worldLight, worldNormal, _SpecularGloss);
 
 				fixed4 col = fixed4(diffuse + specular, albedo.a);
 

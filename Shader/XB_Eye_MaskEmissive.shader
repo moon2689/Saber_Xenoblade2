@@ -6,17 +6,15 @@
 		_MainTex ("Base (RGB)", 2D) = "white" {}
 
 		_MaskEmissive("Mask Emissive(RGB)", 2D) = "black" {}
-
-		_SpecularGloss ("Specular Gloss", float) = 8
 	}
 
 	SubShader
 	{
-		Tags 
+		Tags
 		{
-			"RenderType" = "Transparent"
+			"RenderType" = "Opaque"
 			"IgnoreProjector" = "True"
-			"Queue" = "Transparent+100"
+			"Queue" = "Geometry"
 		}
 		LOD 200
 		
@@ -41,8 +39,6 @@
 			fixed4 _Color;
 			sampler2D _MainTex;
 			sampler2D _MaskEmissive;
-
-			float _SpecularGloss;
 
 
 			struct appdata
@@ -74,20 +70,15 @@
 			{
 				float3 worldPos = i.worldPos;
                 float3 worldLight = normalize(UnityWorldSpaceLightDir(worldPos));
-                float3 worldView = normalize(UnityWorldSpaceViewDir(worldPos));
+                //float3 worldView = normalize(UnityWorldSpaceViewDir(worldPos));
                 float3 worldNormal = normalize(i.worldNormal);
-				
+				float4 maskEmissive = tex2D(_MaskEmissive, i.uv);
+
 				fixed4 albedo = tex2D(_MainTex, i.uv);
 				albedo *= _Color;
 
-				float4 mask = tex2D(_MaskEmissive, i.uv);
-
-				fixed3 diffuse = CalcDiffuse(albedo, worldLight, worldNormal);
-				fixed3 specular = CalcSpecular(worldView, worldLight, worldNormal, _SpecularGloss, i.uv);
-
-				fixed4 col = fixed4(diffuse + specular, albedo.a);
-				col = lerp(col, albedo, mask.r);
-
+				fixed3 diffuse = CalcDiffuseWithEmissive(albedo, worldLight, worldNormal, maskEmissive.r);
+				fixed4 col = fixed4(diffuse, albedo.a);
 				return col;
 			}
 
@@ -96,5 +87,5 @@
 
 	} 
 
-	Fallback "Specular"
+	Fallback "Diffuse"
 }

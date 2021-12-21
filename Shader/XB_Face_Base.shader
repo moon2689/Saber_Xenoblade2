@@ -5,7 +5,10 @@
 		_Color("Main Color", Color) = (1,1,1,1)
 		_MainTex("Base (RGB)", 2D) = "white" {}
 
-		_SpecularGloss("Specular Gloss", float) = 8
+		_Ramp("Ramp Texture", 2D) = "white" {}
+
+		_Outline("Outline", Range(0, 0.01)) = 0.001
+		_OutlineColor("Outline Color", Color) = (0, 0, 0, 1)
 	}
 
 		SubShader
@@ -17,6 +20,8 @@
 				"Queue" = "Transparent+100"
 			}
 			LOD 200
+
+			UsePass "Xenoblade/XB_Body_Bumped_MaskEmissive/OUTLINE"
 
 			Pass
 			{
@@ -39,8 +44,7 @@
 				fixed4 _Color;
 				sampler2D _MainTex;
 				sampler2D _NormalMap;
-
-				float _SpecularGloss;
+				sampler2D _Ramp;
 
 
 				struct appdata
@@ -78,10 +82,9 @@
 					fixed4 albedo = tex2D(_MainTex, i.uv);
 					albedo *= _Color;
 
-					fixed3 diffuse = CalcDiffuse(albedo, worldLight, worldNormal);
-					fixed3 specular = CalcSpecular(worldView, worldLight, worldNormal, _SpecularGloss, i.uv);
+					fixed3 diffuse = CalcDiffuseWithRamp(albedo, worldLight, worldNormal, _Ramp);
 
-					fixed4 col = fixed4(diffuse + specular, albedo.a);
+					fixed4 col = fixed4(diffuse, albedo.a);
 
 					return col;
 				}
@@ -91,5 +94,5 @@
 
 		}
 
-			Fallback "Specular"
+		Fallback "Diffuse"
 }
