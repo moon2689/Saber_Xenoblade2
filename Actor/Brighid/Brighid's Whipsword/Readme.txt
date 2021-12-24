@@ -1,0 +1,1 @@
+Both L and R whipswords are the same.

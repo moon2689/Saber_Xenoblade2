@@ -1,0 +1,1 @@
+You see it in his awakening, the throne he sits on.

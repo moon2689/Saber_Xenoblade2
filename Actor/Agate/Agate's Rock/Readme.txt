@@ -1,0 +1,1 @@
+This is the red rock Agate picks up during her awakening, Not to sure if its ever seen again.
