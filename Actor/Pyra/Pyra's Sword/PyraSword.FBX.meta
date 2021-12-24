@@ -1,0 +1,197 @@
+fileFormatVersion: 2
+guid: 2dec7bec2d4138343bb5ebc9bd5f15ae
+ModelImporter:
+  serializedVersion: 21100
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: PyraSword(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: wp010101_Bone
+      parentName: PyraSword(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_body
+      parentName: wp010101_Bone
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.030190835, y: -0.000000008467285, z: 0.5327598, w: 0.8457278}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_bodyD
+      parentName: EX_body
+      position: {x: 0.89230204, y: 0.000000001265707, z: -0.028956}
+      rotation: {x: -3.5527137e-15, y: 0.17360282, z: 2.220446e-15, w: 0.9848158}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_efB
+      parentName: EX_bodyD
+      position: {x: -0.17195791, y: 0.00000001513958, z: 0.045720004}
+      rotation: {x: -4.546581e-24, y: -3.0511588e-16, z: -0.000000014901161, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_bodyE
+      parentName: EX_body
+      position: {x: 0.72326505, y: 2.997727e-10, z: -0.006858}
+      rotation: {x: 3.5527137e-15, y: 0.15209469, z: 4.440892e-16, w: 0.98836595}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_efC
+      parentName: EX_bodyE
+      position: {x: -0.17195801, y: -0.000000011354684, z: 0.044831008}
+      rotation: {x: -4.440891e-16, y: -0.000000029802322, z: -0.000000014901158, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_bodyF
+      parentName: EX_body
+      position: {x: 0.55245, y: -3.4418346e-10, z: 0.007874}
+      rotation: {x: -0.15429631, y: 0.034279145, z: -0.38608956, w: 0.90881926}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: EX_efD
+      parentName: EX_bodyF
+      position: {x: -0.17208494, y: -0.000000013625623, z: 0.043814983}
+      rotation: {x: 6.6174465e-24, y: 0.0000000074505815, z: -8.881785e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_bodyB
+      parentName: EX_body
+      position: {x: 0.58039, y: 0.0000000011324746, z: -0.025907999}
+      rotation: {x: 0.40233457, y: 0.8648376, z: -0.187605, w: -0.23449361}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_efE
+      parentName: EX_bodyB
+      position: {x: -0.0635, y: 0.000000012111687, z: 0}
+      rotation: {x: -2.842171e-14, y: -4.1176274e-14, z: -1.1703001e-27, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_bodyC
+      parentName: EX_body
+      position: {x: 0.84937596, y: 9.2395563e-10, z: 0.048133}
+      rotation: {x: -0.00000030558098, y: 0.9397002, z: 0.00000030558112, w: 0.3419995}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_efF
+      parentName: EX_bodyC
+      position: {x: -0.06349995, y: -0.000000036334946, z: -0.000000048446655}
+      rotation: {x: 4.8296406e-21, y: 1.6205593e-13, z: -0.000000029802308, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EX_efA
+      parentName: EX_body
+      position: {x: 0.26822397, y: -1.6654039e-10, z: 0.0038100001}
+      rotation: {x: -0.00000016292067, y: 1, z: 0.00000016292068, w: -2.6497974e-14}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh 0[U-201NS]
+      parentName: PyraSword(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh 1[U-201NS]
+      parentName: PyraSword(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh 2[U-201NS]
+      parentName: PyraSword(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh 3[U-2012NS]
+      parentName: PyraSword(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mesh 4[U-20123NS]
+      parentName: PyraSword(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 0
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
