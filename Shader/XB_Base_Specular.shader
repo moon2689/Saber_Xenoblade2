@@ -10,11 +10,11 @@
 
 	SubShader
 	{
-		Tags 
+		Tags
 		{
-			"RenderType" = "Transparent"
+			"RenderType" = "Opaque"
+			"Queue" = "Geometry"
 			"IgnoreProjector" = "True"
-			"Queue" = "Transparent+100"
 		}
 		LOD 200
 		

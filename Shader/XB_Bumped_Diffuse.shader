@@ -9,11 +9,11 @@
 
 	SubShader
 	{
-		Tags 
+		Tags
 		{
-			"RenderType" = "Transparent"
+			"RenderType" = "Opaque"
+			"Queue" = "Geometry"
 			"IgnoreProjector" = "True"
-			"Queue" = "Transparent+100"
 		}
 		LOD 200
 		
@@ -23,7 +23,6 @@
 			{
 				"LightMode" = "ForwardBase"
 			}
-			Cull Off
 
 			CGPROGRAM
 			#pragma vertex vert
@@ -82,7 +81,7 @@
 				float3 tangentNormal = UnpackNormal(tex2D(_NormalMap, i.uv));
                 float3x3 tanToWorld = float3x3(i.T2W1.xyz, i.T2W2.xyz, i.T2W3.xyz);
                 float3 worldNormal = mul(tanToWorld, tangentNormal);
-				
+
 				fixed4 albedo = tex2D(_MainTex, i.uv) * _Color;
 				fixed3 diffuse = CalcDiffuse(albedo, worldLight, worldNormal);
 				

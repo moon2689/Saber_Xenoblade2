@@ -1,9 +1,9 @@
-﻿Shader "Xenoblade/XB_Base_Diffuse"
+﻿Shader "Xenoblade/XB_Cloth_Base"
 {
 	Properties
 	{
-		_Color ("Main Color", Color) = (1,1,1,1)
 		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_Ramp("Ramp Texture", 2D) = "white" {}
 	}
 
 	SubShader
@@ -16,6 +16,50 @@
 		}
 		LOD 200
 		
+		Pass
+		{
+			NAME "OUTLINE"
+
+			Cull Front
+
+			CGPROGRAM
+
+			#pragma vertex vert
+			#pragma fragment frag
+
+			#include "UnityCG.cginc"
+
+			struct a2v
+			{
+				float4 vertex : POSITION;
+				float3 normal : NORMAL;
+			};
+
+			struct v2f
+			{
+				float4 pos : SV_POSITION;
+			};
+
+			v2f vert(a2v v)
+			{
+				v2f o;
+
+				float4 pos = mul(UNITY_MATRIX_MV, v.vertex);
+				float3 normal = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
+				normal.z = -0.5;
+				pos = pos + float4(normalize(normal), 0) * 0.001;
+				o.pos = mul(UNITY_MATRIX_P, pos);
+				return o;
+			}
+
+			float4 frag(v2f i) : SV_Target
+			{
+				return float4(0, 0, 0, 1);
+			}
+
+			ENDCG
+		}
+
 		Pass
 		{
 			Tags
@@ -34,8 +78,8 @@
 
 			#include "XenobladeCG.cginc"
 
-			fixed4 _Color;
 			sampler2D _MainTex;
+			sampler2D _Ramp;
 
 
 			struct appdata
@@ -70,8 +114,8 @@
                 //float3 worldView = normalize(UnityWorldSpaceViewDir(worldPos));
 				float3 worldNormal = normalize(i.worldNormal);
 
-				fixed4 albedo = tex2D(_MainTex, i.uv) * _Color;
-				fixed3 diffuse = CalcDiffuse(albedo, worldLight, worldNormal);
+				fixed4 albedo = tex2D(_MainTex, i.uv);
+				fixed3 diffuse = CalcDiffuseWithRamp(albedo, worldLight, worldNormal, _Ramp);
 				
 				fixed4 col = fixed4(diffuse, albedo.a);
 

@@ -1,12 +1,12 @@
-﻿Shader "Xenoblade/XB_Base_Diffuse"
+﻿Shader "Xenoblade/XB_Face_Base"
 {
 	Properties
 	{
-		_Color ("Main Color", Color) = (1,1,1,1)
-		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_MainTex("Base (RGB)", 2D) = "white" {}
+		_Ramp("Ramp Texture", 2D) = "white" {}
 	}
 
-	SubShader
+		SubShader
 	{
 		Tags
 		{
@@ -15,7 +15,7 @@
 			"IgnoreProjector" = "True"
 		}
 		LOD 200
-		
+
 		Pass
 		{
 			Tags
@@ -34,8 +34,8 @@
 
 			#include "XenobladeCG.cginc"
 
-			fixed4 _Color;
 			sampler2D _MainTex;
+			sampler2D _Ramp;
 
 
 			struct appdata
@@ -66,13 +66,13 @@
 			fixed4 frag(v2f i) : SV_TARGET
 			{
 				float3 worldPos = i.worldPos;
-                float3 worldLight = normalize(UnityWorldSpaceLightDir(worldPos));
-                //float3 worldView = normalize(UnityWorldSpaceViewDir(worldPos));
+				float3 worldLight = normalize(UnityWorldSpaceLightDir(worldPos));
+				//float3 worldView = normalize(UnityWorldSpaceViewDir(worldPos));
 				float3 worldNormal = normalize(i.worldNormal);
 
-				fixed4 albedo = tex2D(_MainTex, i.uv) * _Color;
-				fixed3 diffuse = CalcDiffuse(albedo, worldLight, worldNormal);
-				
+				fixed4 albedo = tex2D(_MainTex, i.uv);
+				fixed3 diffuse = CalcDiffuseWithRamp(albedo, worldLight, worldNormal, _Ramp);
+
 				fixed4 col = fixed4(diffuse, albedo.a);
 
 				return col;
@@ -81,7 +81,7 @@
 			ENDCG
 		}
 
-	} 
+	}
 
 	Fallback "Diffuse"
 }

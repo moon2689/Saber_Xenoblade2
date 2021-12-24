@@ -2,28 +2,21 @@
 {
 	Properties
 	{
-		_Color ("Main Color", Color) = (1,1,1,1)
 		_MainTex ("Base (RGB)", 2D) = "white" {}
-
 		_Ramp("Ramp Texture", 2D) = "white" {}
-
-		_SpecularScale("Specular Scale", Range(0, 0.1)) = 0.01
-
-		_Outline("Outline", Range(0, 0.01)) = 0.001
-		_OutlineColor("Outline Color", Color) = (0, 0, 0, 1)
 	}
 
 	SubShader
 	{
 		Tags
 		{
-			"RenderType" = "Transparent"
+			"RenderType" = "Opaque"
+			"Queue" = "Geometry"
 			"IgnoreProjector" = "True"
-			"Queue" = "Transparent+100"
 		}
 		LOD 200
 		
-		UsePass "Xenoblade/XB_Body_Bumped_MaskEmissive/OUTLINE"
+		//UsePass "Xenoblade/XB_Cloth_Base/OUTLINE"
 
 		Pass
 		{
@@ -43,11 +36,8 @@
 
 			#include "XenobladeCG.cginc"
 
-			fixed4 _Color;
 			sampler2D _MainTex;
 			sampler2D _Ramp;
-
-			float _SpecularScale;
 
 
 			struct appdata
@@ -78,17 +68,12 @@
 			fixed4 frag(v2f i) : SV_TARGET
 			{
 				float3 worldPos = i.worldPos;
-                float3 worldLight = normalize(UnityWorldSpaceLightDir(worldPos));
-                float3 worldView = normalize(UnityWorldSpaceViewDir(worldPos));
-				float3 worldNormal = normalize(i.worldNormal);
+				float3 worldLight = normalize(UnityWorldSpaceLightDir(worldPos));
+				float3 worldNormal = i.worldNormal;
 				
 				fixed4 albedo = tex2D(_MainTex, i.uv);
-				albedo *= _Color;
-
 				fixed3 diffuse = CalcDiffuseWithRamp(albedo, worldLight, worldNormal, _Ramp);
-				fixed3 specular = CalcSpecular4Cartoon(worldView, worldLight, worldNormal, _SpecularScale);
-
-				fixed4 col = fixed4(diffuse + specular, albedo.a);
+				fixed4 col = fixed4(diffuse, albedo.a);
 
 				return col;
 			}

@@ -1,19 +1,17 @@
-﻿Shader "Xenoblade/XB_Body_Bumped_MaskEmissive"
+﻿Shader "Xenoblade/XB_Body_SpecMaskDouble"
 {
 	Properties
 	{
-		_Color("Main Color", Color) = (1,1,1,1)
 		_MainTex("Base (RGB)", 2D) = "white" {}
 		_NormalMap("Normal Map", 2D) = "bump" {}
 
 		_Ramp("Ramp Texture", 2D) = "white" {}
-		_MaskEmissive("Mask Emissive(RGB)", 2D) = "black" {}
-		_MaskSkin("Mask Skin(RGB)", 2D) = "black" {}
 
-		_SpecularScale("Specular Scale", Range(0, 0.1)) = 0.01
+		_SpecTex("Specular Texture", 2D) = "white" {}
+		_SpecularGloss("Specular Gloss", float) = 8
 
-		_Outline("Outline", Range(0, 0.01)) = 0.001
-		_OutlineColor("Outline Color", Color) = (0, 0, 0, 1)
+		_SpecTex2("Specular Texture 2", 2D) = "white" {}
+		_MaskSpecTex2("Mask SpecTex 2", 2D) = "black" {}
 	}
 
 	SubShader
@@ -21,58 +19,12 @@
 		Tags
 		{
 			"RenderType" = "Opaque"
-			"IgnoreProjector" = "True"
 			"Queue" = "Geometry"
+			"IgnoreProjector" = "True"
 		}
 		LOD 200
 
-		Pass
-		{
-			NAME "OUTLINE"
-
-			Cull Front
-
-			CGPROGRAM
-
-			#pragma vertex vert
-			#pragma fragment frag
-
-			#include "UnityCG.cginc"
-
-			float _Outline;
-			fixed4 _OutlineColor;
-
-			struct a2v
-			{
-				float4 vertex : POSITION;
-				float3 normal : NORMAL;
-			};
-
-			struct v2f
-			{
-				float4 pos : SV_POSITION;
-			};
-
-			v2f vert(a2v v)
-			{
-				v2f o;
-
-				float4 pos = mul(UNITY_MATRIX_MV, v.vertex);
-				float3 normal = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
-				normal.z = -0.5;
-				pos = pos + float4(normalize(normal), 0) * _Outline;
-				o.pos = mul(UNITY_MATRIX_P, pos);
-				//o.pos = UnityObjectToClipPos(v.vertex + v.normal * _Outline);
-				return o;
-			}
-
-			float4 frag(v2f i) : SV_Target
-			{
-				return float4(_OutlineColor.rgb, 1);
-			}
-
-			ENDCG
-		}
+		UsePass "Xenoblade/XB_Cloth_Base/OUTLINE"
 
 		Pass
 		{
@@ -89,17 +41,16 @@
 			#include "UnityCG.cginc"
 			#include "AutoLight.cginc"
 			#include "Lighting.cginc"
-
 			#include "XenobladeCG.cginc"
 
-			fixed4 _Color;
 			sampler2D _MainTex;
 			sampler2D _NormalMap;
 			sampler2D _Ramp;
-			sampler2D _MaskEmissive;
-			sampler2D _MaskSkin;
 
-			float _SpecularScale;
+			sampler2D _SpecTex;
+			float _SpecularGloss;
+			sampler2D _SpecTex2;
+			sampler2D _MaskSpecTex2;
 
 
 			struct appdata
@@ -143,16 +94,29 @@
 				float3 tangentNormal = UnpackNormal(tex2D(_NormalMap, i.uv));
 				float3x3 tanToWorld = float3x3(i.T2W1.xyz, i.T2W2.xyz, i.T2W3.xyz);
 				float3 worldNormal = mul(tanToWorld, tangentNormal);
-				float4 maskEmission = tex2D(_MaskEmissive, i.uv);
-				float4 maskSkin = tex2D(_MaskSkin, i.uv);
+				fixed4 texSpec = tex2D(_SpecTex, i.uv);
+				fixed4 texSpec2 = tex2D(_SpecTex2, i.uv * 6);
+				fixed4 maskSpec2 = tex2D(_MaskSpecTex2, i.uv);
 
+				fixed4 col;
+
+				// 漫反射
 				fixed4 albedo = tex2D(_MainTex, i.uv);
-				albedo *= _Color;
+				fixed3 diffuse = CalcDiffuseWithRamp(albedo, worldLight, worldNormal, _Ramp);
+				col.rgb = diffuse;
 
-				fixed3 diffuse = CalcDiffuseWithRampEmissive(albedo, worldLight, worldNormal, _Ramp, maskEmission.r);
-				fixed3 specular = CalcSpecular4Cartoon(worldView, worldLight, worldNormal, _SpecularScale, maskSkin.r);
-				fixed4 col = fixed4(diffuse + specular, albedo.a);
+				// 高光1
+				if (texSpec.b < 0.5 && texSpec.g > 0.5)		// 不是皮肤 && 是金属
+				{
+					fixed3 spec1Col = CalcSpecularWithColor(worldView, worldLight, worldNormal, _SpecularGloss, texSpec * 3);
+					col.rgb += spec1Col;
+				}
 
+				// 高光2
+				fixed3 spec2Col = CalcSpecularWithColor(worldView, worldLight, worldNormal, _SpecularGloss, texSpec2.rgb * 6);
+				col.rgb = lerp(col.rgb, spec2Col, maskSpec2.g);
+
+				col.a = albedo.a;
 				return col;
 			}
 

@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 49199d9fbe780d04288fcc8850e5a4de
+guid: d8d3a2fa1a7cd7f45b6a155b6bf99d49
 ShaderImporter:
   externalObjects: {}
   defaultTextures:
   - _MainTex: {instanceID: 0}
+  - _NormalMap: {instanceID: 0}
   - _Ramp: {fileID: 2800000, guid: 570ce00598ab49c48a2569538cb330dd, type: 3}
+  - _MaskEmissive: {instanceID: 0}
+  - _MaskSkin: {instanceID: 0}
   nonModifiableTextures: []
   preprocessorOverride: 0
   userData: 

@@ -2,9 +2,7 @@
 {
 	Properties
 	{
-		_Color ("Main Color", Color) = (1,1,1,1)
 		_MainTex ("Base (RGB)", 2D) = "white" {}
-
 		_MaskEmissive("Mask Emissive(RGB)", 2D) = "black" {}
 	}
 
@@ -13,8 +11,8 @@
 		Tags
 		{
 			"RenderType" = "Opaque"
-			"IgnoreProjector" = "True"
 			"Queue" = "Geometry"
+			"IgnoreProjector" = "True"
 		}
 		LOD 200
 		
@@ -33,10 +31,8 @@
 			#include "UnityCG.cginc"
 			#include "AutoLight.cginc"
 			#include "Lighting.cginc"
-
 			#include "XenobladeCG.cginc"
 
-			fixed4 _Color;
 			sampler2D _MainTex;
 			sampler2D _MaskEmissive;
 
@@ -75,9 +71,7 @@
 				float4 maskEmissive = tex2D(_MaskEmissive, i.uv);
 
 				fixed4 albedo = tex2D(_MainTex, i.uv);
-				albedo *= _Color;
-
-				fixed3 diffuse = CalcDiffuseWithEmissive(albedo, worldLight, worldNormal, maskEmissive.r);
+				fixed3 diffuse = CalcDiffuseWithEmissive(albedo, worldLight, worldNormal, maskEmissive.r * 2);
 				fixed4 col = fixed4(diffuse, albedo.a);
 				return col;
 			}
