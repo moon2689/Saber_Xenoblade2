@@ -45,7 +45,8 @@
 				v2f o;
 
 				float4 pos = mul(UNITY_MATRIX_MV, v.vertex);
-				float3 normal = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
+				//float3 normal = mul((float3x3)UNITY_MATRIX_IT_MV, v.normal);
+				float3 normal = UnityObjectToViewPos(v.normal);
 				normal.z = -0.5;
 				pos = pos + float4(normalize(normal), 0) * 0.001;
 				o.pos = mul(UNITY_MATRIX_P, pos);

@@ -94,9 +94,6 @@
 				float3 tangentNormal = UnpackNormal(tex2D(_NormalMap, i.uv));
 				float3x3 tanToWorld = float3x3(i.T2W1.xyz, i.T2W2.xyz, i.T2W3.xyz);
 				float3 worldNormal = mul(tanToWorld, tangentNormal);
-				fixed4 texSpec = tex2D(_SpecTex, i.uv);
-				fixed4 texSpec2 = tex2D(_SpecTex2, i.uv * 6);
-				fixed4 maskSpec2 = tex2D(_MaskSpecTex2, i.uv);
 
 				fixed4 col;
 
@@ -106,6 +103,7 @@
 				col.rgb = diffuse;
 
 				// 高光1
+				fixed4 texSpec = tex2D(_SpecTex, i.uv);
 				if (texSpec.b < 0.5 && texSpec.g > 0.5)		// 不是皮肤 && 是金属
 				{
 					fixed3 spec1Col = CalcSpecularWithColor(worldView, worldLight, worldNormal, _SpecularGloss, texSpec * 3);
@@ -113,6 +111,8 @@
 				}
 
 				// 高光2
+				fixed4 texSpec2 = tex2D(_SpecTex2, i.uv * 6);
+				fixed4 maskSpec2 = tex2D(_MaskSpecTex2, i.uv);
 				fixed3 spec2Col = CalcSpecularWithColor(worldView, worldLight, worldNormal, _SpecularGloss, texSpec2.rgb * 6);
 				col.rgb = lerp(col.rgb, spec2Col, maskSpec2.g);
 

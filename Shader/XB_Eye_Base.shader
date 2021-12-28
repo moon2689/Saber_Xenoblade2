@@ -1,4 +1,4 @@
-﻿Shader "Xenoblade/XB_Face_Base"
+﻿Shader "Xenoblade/XB_Eye_Base"
 {
 	Properties
 	{
