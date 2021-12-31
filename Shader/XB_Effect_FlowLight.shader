@@ -1,29 +1,33 @@
-﻿Shader "Xenoblade/XB_Crista_Flicker"
+﻿Shader "Xenoblade/XB_Effect_FlowLight"
 {
 	Properties
 	{
-		_MainTex("Base (RGB)", 2D) = "white" {}
-		_FlickerTex("Flicker (RGB)", 2D) = "white" {}
+		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_Speed("Speed", float) = 6
 	}
 
 	SubShader
 	{
-		Tags
+		Tags 
 		{
-			"RenderType" = "Opaque"
-			"Queue" = "Geometry"
+			"RenderType" = "Transparent"
+			"Queue" = "Transparent"
 			"IgnoreProjector" = "True"
 		}
 		LOD 200
-
+		
 		Pass
 		{
+			ZWrite Off
+			Blend SrcAlpha OneMinusSrcAlpha
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
 
 			sampler2D _MainTex;
-			sampler2D _FlickerTex;
+			float _Speed;
+
 
 			struct appdata
 			{
@@ -47,19 +51,15 @@
 
 			fixed4 frag(v2f i) : SV_TARGET
 			{
-				fixed4 albedo = tex2D(_MainTex, i.uv);
-				fixed4 flicker = tex2D(_FlickerTex, i.uv);
-				//float speed = abs(_SinTime.w);
-				float speed = _SinTime.w;
-				float offset = max(0, flicker.r * speed);
-				fixed4 col = albedo * (1 + offset);
+				float speed = -_Time.x * _Speed;
+				fixed4 col = tex2D(_MainTex, i.uv + fixed2(speed, speed));
 				return col;
 			}
 
 			ENDCG
 		}
 
-	}
+	} 
 
 	Fallback "Diffuse"
 }

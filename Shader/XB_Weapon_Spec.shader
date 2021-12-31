@@ -1,17 +1,12 @@
-﻿Shader "Xenoblade/XB_Cloth_SpecAndEmissive"
+﻿Shader "Xenoblade/XB_Weapon_Spec"
 {
 	Properties
 	{
 		_MainTex("Base (RGB)", 2D) = "white" {}
 		_NormalMap("Normal Map", 2D) = "bump" {}
-
 		_Ramp("Ramp Texture", 2D) = "white" {}
 
-		_SpecTex("Specular Texture", 2D) = "white" {}
-		_SpecMask("Specular Mask", 2D) = "white" {}
 		_SpecularGloss("Specular Gloss", float) = 8
-		
-		_EmissiveMask("Emissive Mask", 2D) = "white" {}
 	}
 
 	SubShader
@@ -47,10 +42,7 @@
 			sampler2D _NormalMap;
 			sampler2D _Ramp;
 
-			sampler2D _SpecTex;
-			sampler2D _SpecMask;
 			float _SpecularGloss;
-			sampler2D _EmissiveMask;
 
 
 			struct appdata
@@ -94,20 +86,17 @@
 				float3 tangentNormal = UnpackNormal(tex2D(_NormalMap, i.uv));
 				float3x3 tanToWorld = float3x3(i.T2W1.xyz, i.T2W2.xyz, i.T2W3.xyz);
 				float3 worldNormal = mul(tanToWorld, tangentNormal);
-				
+
 				fixed4 col;
 
 				// 漫反射
-				fixed4 maskEmissive = tex2D(_EmissiveMask, i.uv);
 				fixed4 albedo = tex2D(_MainTex, i.uv);
-				fixed3 diffuse = CalcDiffuseWithRampEmissive(albedo, worldLight, worldNormal, _Ramp, maskEmissive.r);
+				fixed3 diffuse = CalcDiffuseWithRamp(albedo, worldLight, worldNormal, _Ramp);
 				col.rgb = diffuse;
 
 				// 高光
-				fixed4 maskSpec = tex2D(_SpecMask, i.uv);
-				fixed4 texSpec = tex2D(_SpecTex, i.uv) * maskSpec.r * 3;
-				fixed3 spec1Col = CalcSpecularWithColor(worldView, worldLight, worldNormal, _SpecularGloss, texSpec);
-				col.rgb += spec1Col;
+				fixed3 specCol = CalcSpecular(worldView, worldLight, worldNormal, _SpecularGloss);
+				col.rgb += specCol;
 
 				col.a = albedo.a;
 				return col;

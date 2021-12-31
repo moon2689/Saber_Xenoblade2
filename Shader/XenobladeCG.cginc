@@ -24,8 +24,8 @@ fixed3 CalcDiffuseWithEmissive(fixed4 albedo, float3 worldLight, float3 worldNor
 {
 	float d = dot(worldLight, worldNormal) * 0.5 + 0.5;
 	fixed3 diffuse = albedo.rgb * _LightColor0.rgb * d;
-	//diffuse = lerp(diffuse, albedo, emissive);
-	diffuse += albedo * emissive;
+	diffuse = lerp(diffuse, albedo, emissive);
+	//diffuse += albedo * emissive;
 	return diffuse;
 }
 
@@ -34,8 +34,8 @@ fixed3 CalcDiffuseWithRampEmissive(fixed4 albedo, float3 worldLight, float3 worl
 {
 	float d = dot(worldLight, worldNormal) * 0.5 + 0.5;
 	fixed3 diffuse = albedo.rgb * _LightColor0.rgb * tex2D(ramp, float2(d, d)).rgb;
-	//diffuse = lerp(diffuse, albedo, emissive);
-	diffuse += albedo * emissive;
+	diffuse = lerp(diffuse, albedo, emissive);
+	//diffuse += albedo * emissive;
 	return diffuse;
 }
 

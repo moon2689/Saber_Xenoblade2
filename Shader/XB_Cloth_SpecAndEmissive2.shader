@@ -1,4 +1,4 @@
-﻿Shader "Xenoblade/XB_Cloth_SpecAndEmissive"
+﻿Shader "Xenoblade/XB_Cloth_SpecAndEmissive2"
 {
 	Properties
 	{
@@ -7,7 +7,6 @@
 
 		_Ramp("Ramp Texture", 2D) = "white" {}
 
-		_SpecTex("Specular Texture", 2D) = "white" {}
 		_SpecMask("Specular Mask", 2D) = "white" {}
 		_SpecularGloss("Specular Gloss", float) = 8
 		
@@ -47,7 +46,6 @@
 			sampler2D _NormalMap;
 			sampler2D _Ramp;
 
-			sampler2D _SpecTex;
 			sampler2D _SpecMask;
 			float _SpecularGloss;
 			sampler2D _EmissiveMask;
@@ -105,9 +103,8 @@
 
 				// 高光
 				fixed4 maskSpec = tex2D(_SpecMask, i.uv);
-				fixed4 texSpec = tex2D(_SpecTex, i.uv) * maskSpec.r * 3;
-				fixed3 spec1Col = CalcSpecularWithColor(worldView, worldLight, worldNormal, _SpecularGloss, texSpec);
-				col.rgb += spec1Col;
+				fixed3 spec1Col = CalcSpecular(worldView, worldLight, worldNormal, _SpecularGloss);
+				col.rgb += spec1Col * maskSpec.b;
 
 				col.a = albedo.a;
 				return col;
