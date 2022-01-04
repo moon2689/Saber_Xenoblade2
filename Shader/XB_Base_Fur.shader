@@ -34,252 +34,6 @@
                 
             }
 
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.05
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.10
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.15
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.20
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.25
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.30
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.35
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.40
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.45
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.50
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.55
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.60
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.65
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.70
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.75
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.80
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.85
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.90
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
-            
-            Pass
-            {
-                CGPROGRAM
-                
-                #pragma vertex vert_base
-                #pragma fragment frag_base
-                #define FURSTEP 0.95
-                #include "XBFurHelper.cginc"
-                
-                ENDCG
-                
-            }
 
             Pass
             {
@@ -287,12 +41,69 @@
                 
                 #pragma vertex vert_base
                 #pragma fragment frag_base
-                #define FURSTEP 1.00
+                #define FURSTEP 0.2
                 #include "XBFurHelper.cginc"
                 
                 ENDCG
                 
             }
+            
+          
+            Pass
+            {
+                CGPROGRAM
+                
+                #pragma vertex vert_base
+                #pragma fragment frag_base
+                #define FURSTEP 0.4
+                #include "XBFurHelper.cginc"
+                
+                ENDCG
+                
+            }
+            
+          
+            Pass
+            {
+                CGPROGRAM
+                
+                #pragma vertex vert_base
+                #pragma fragment frag_base
+                #define FURSTEP 0.6
+                #include "XBFurHelper.cginc"
+                
+                ENDCG
+                
+            }
+            
+           
+            Pass
+            {
+                CGPROGRAM
+                
+                #pragma vertex vert_base
+                #pragma fragment frag_base
+                #define FURSTEP 0.8
+                #include "XBFurHelper.cginc"
+                
+                ENDCG
+                
+            }
+
+            
+            Pass
+            {
+                CGPROGRAM
+                
+                #pragma vertex vert_base
+                #pragma fragment frag_base
+                #define FURSTEP 1
+                #include "XBFurHelper.cginc"
+                
+                ENDCG
+                
+            }
+          
         }
     }
 }
